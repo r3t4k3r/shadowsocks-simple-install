@@ -1,7 +1,7 @@
 #!/bin/bash
 export PORT=8000 # Если порт 8000 заблокирован в вашей сети, измените на любой бругой 
 export PASSWORD=$( cat /dev/urandom | tr --delete --complement 'a-z0-9' | head --bytes=16 )
-export IP=$(ip -o route get to 8.8.8.8 | sed -n 's/.*src \([0-9.]\+\).*/\1/p')
+export IP=$(curl ident.me)
 export ENCRYPTION=chacha20-ietf-poly1305
 export V2RAY=$1
 
@@ -29,11 +29,14 @@ cat > "$1" <<EOF
 {
     "server":"0.0.0.0",
     "server_port":$2,
-    "local_port":1080,
+    "local_port":16800,
     "password":"$3",
     "plugin":"/etc/shadowsocks-libev/v2ray-plugin",
     "timeout":3000,
-    "method":"$ENCRYPTION"
+    "method":"$ENCRYPTION",
+    "fast_open":false,
+    "reuse_port":true,
+    "plugin_opts":"server;path=/mypath"
 }
 EOF
 }
