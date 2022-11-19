@@ -25,6 +25,8 @@ chmod +x shadowsocks-simple-install.sh
 ![](https://github.com/unixhostpro/shadowsocks-simple-install/blob/master/ss.png)
 Скачиваем и устанавливаем клиент
 
+В клиенте дополнительно включаем v2ray-plugin и прописываем ему путь: `path=/mypath`
+
 Клиенты Shadowsocks
 - [Windows](http://https://github.com/shadowsocks/shadowsocks-windows/releases "Windows")
 - [Android](https://play.google.com/store/apps/details?id=com.github.shadowsocks "Android")
