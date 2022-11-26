@@ -54,7 +54,7 @@ function config_info() {
 	echo -e "${Yellow}---------------------------------------${Off}"
 	echo 
 	echo -e "${Green}Your shadowsocks proxy configuration:${Off}"
-	echo -e "${Yellow}URL:${Off} ss://$(generate_hash chacha20-ietf-poly1305 $PASSWORD)@$IP:$PORT"
+	echo -e "${Yellow}URL:${Off} ss://$(generate_hash chacha20-ietf-poly1305 $PASSWORD)@$IP:$PORT?plugin=v2ray-plugin%3Bpath%3D%2Fmypath"
 	echo
 	echo -e "${Yellow}Windows Client :${Off} https://github.com/shadowsocks/shadowsocks-windows/releases"
 	echo -e "${Yellow}Android Client :${Off} https://play.google.com/store/apps/details?id=com.github.shadowsocks"
