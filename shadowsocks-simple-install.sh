@@ -41,6 +41,22 @@ cat > "$1" <<EOF
 EOF
 }
 
+function client_linux_config() {
+cat > "$1" << EOF
+{
+    "server":"\"$IP\"",
+    "server_port": $PORT,
+    "local_address":"127.0.0.1",
+    "local_port": 1080,
+    "password":"\"$PASSWORD\"",
+    "timeout":3000,
+    "method":"chacha20-ietf-poly1305",
+    "plugin":"/your/custom/path/to/v2ray-plugin_linux_amd64",
+    "plugin_opts":"path=/mypath"
+}
+EOF
+}
+
 function generate_hash() {
 	echo -n "$1":"$2" | base64
 }
@@ -100,7 +116,8 @@ if [ "$V2RAY" == "v2ray" ]; then
 	sudo setcap 'cap_net_bind_service=+ep' /etc/shadowsocks-libev/v2ray-plugin
 	sudo setcap 'cap_net_bind_service=+ep' /usr/bin/ss-server
 	config_v2ray /etc/shadowsocks-libev/config.json "$PORT" "$PASSWORD"
-
+	client_linux_config linux_client_config.json # generate client linux confing to connect
+	echo -e "ss://$(generate_hash chacha20-ietf-poly1305 $PASSWORD)@$IP:$PORT?plugin=v2ray-plugin%3Bpath%3D%2Fmypath" > ss_client.conf
 elif [ -z "$V2RAY" ]; then
 	config /etc/shadowsocks-libev/config.json "$PORT" "$PASSWORD"
 else
